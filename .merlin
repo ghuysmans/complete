@@ -1,0 +1,4 @@
+B _build/
+PKG menhirLib
+PKG js_of_ocaml
+PKG js_of_ocaml-tyxml
