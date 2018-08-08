@@ -51,8 +51,13 @@ let () = Js.export "complete" (object%js
     | Some f ->
       let v = Js.to_string f##.value in
       let v' =
-        if e##.keyCode = 0 then
-          v ^ Js.to_string (Js.Optdef.get e##.key (fun () -> failwith "key"))
+        (* Firefox doesn't set onkeypress' keyCode,
+         * and some others don't support which *)
+        let k = Js.Optdef.get e##.which (fun () -> e##.keyCode) in
+        if k >= 32 then
+          v ^ String.make 1 (char_of_int k)
+        else if k = 8 && v <> "" then
+          String.sub v 0 (String.length v - 1)
         else
           v
       in
