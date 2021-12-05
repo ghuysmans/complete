@@ -32,7 +32,7 @@ let suggest tokens lexer parser s =
   } in
   let sup = lexer_lexbuf_to_supplier lexer lexbuf in
   match loop_handle_undo success failure sup (parser pos) with
-  | Success n ->
+  | Success _n ->
     []
   | Failure (p, l) ->
     let pos = p.Lexing.pos_cnum in
