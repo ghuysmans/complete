@@ -41,7 +41,7 @@ let suggest tokens lexer parser s =
 
 
 open Js_of_ocaml
-open Tyxml
+open Js_of_ocaml_tyxml
 (* TODO make this reactive! *)
 
 let () = Js.export "complete" (object%js
@@ -66,7 +66,7 @@ let () = Js.export "complete" (object%js
           let tokens = Parser.[PLUS; LINT 42; LPAR; RPAR; EOF] in
           Parser.(suggest tokens Lexer.top Incremental.l v') |>
           List.map @@ fun x ->
-            Tyxml_js.Html.(option (pcdata x)) |>
+            Tyxml_js.Html.(option (txt x)) |>
             Tyxml_js.To_dom.of_option
         with _ ->
           []
