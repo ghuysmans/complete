@@ -1,0 +1,7 @@
+(ocamllex (modules lexer))
+(menhir (modules parser) (flags --inspection --table))
+(executable
+ (name x)
+ (modes js)
+ (libraries menhirLib js_of_ocaml-tyxml)
+ (preprocess (pps js_of_ocaml-ppx)))
