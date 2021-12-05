@@ -24,13 +24,8 @@ let suggest tokens lexer parser s =
       List.filter (fun (_, a) -> a (* is true *)) |>
       List.map (fun (t, _) -> t)
   ) in
-  let pos = Lexing.{
-    pos_fname = "<stdin>";
-    pos_lnum = 1;
-    pos_bol = 0;
-    pos_cnum = 0;
-  } in
   let sup = lexer_lexbuf_to_supplier lexer lexbuf in
+  let pos = {lexbuf.Lexing.lex_curr_p with pos_fname = "<stdin>"} in
   match loop_handle_undo success failure sup (parser pos) with
   | Success _n ->
     []
